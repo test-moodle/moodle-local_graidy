@@ -41,6 +41,27 @@ function local_graidy_extend_settings_navigation(settings_navigation $settingsna
     global $DB;
     global $USER;
 
+    // Check if the user has access to the external service.
+    $service = $DB->get_record('external_services', [
+        'shortname' => 'local_graidy',  // <-- Change to your actual service shortname
+        'enabled'   => 1
+    ], '*', MUST_EXIST);
+
+    
+    if (!$service) {
+        return; // Service does not exist.
+    }
+
+    $user_has_access = $DB->record_exists('external_services_users', [
+        'externalserviceid' => $service->id,
+        'userid' => $USER->id
+    ]);
+
+    if (!$user_has_access) {
+        return; // User does not have access to the external service.
+    }
+
+
     // Check if the context is module-level.
     if ($context->contextlevel === CONTEXT_MODULE) {
         debugging("Context is module-level.");
@@ -103,10 +124,28 @@ function local_graidy_extend_settings_navigation(settings_navigation $settingsna
 }
 
 function local_graidy_extend_navigation_course(navigation_node $parentnode, stdClass $course, context_course $context) {
-    // Check capability if you want to restrict who sees this link.
-    // if (!has_capability('moodle/course:view', $context)) {
-    //     return;
-    // }
+    global $DB;
+    global $USER;
+
+    // Check if the user has access to the external service.
+    $service = $DB->get_record('external_services', [
+        'shortname' => 'local_graidy',  // <-- Change to your actual service shortname
+        'enabled'   => 1
+    ], '*', MUST_EXIST);
+
+    
+    if (!$service) {
+        return; // Service does not exist.
+    }
+
+    $user_has_access = $DB->record_exists('external_services_users', [
+        'externalserviceid' => $service->id,
+        'userid' => $USER->id
+    ]);
+
+    if (!$user_has_access) {
+        return; // User does not have access to the external service.
+    }
 
     // Create the URL with the "id" param set to the course's ID.
     $url = new moodle_url('/local/graidy/course.php', ['courseid' => $course->id]);

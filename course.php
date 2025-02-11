@@ -1,3 +1,10 @@
+<style>
+
+    .activity-header{
+        display: none !important;
+    }
+</style>
+
 <?php
 /**
  * Displays Graidy portal in an iframe, tied to a specific course ID.
@@ -17,11 +24,11 @@ $courseid = required_param('courseid', PARAM_INT); // Required course ID.
 $course = get_course($courseid);
 require_login($course);
 
-// Setup the context for this course.
-debugging("Context type: " . $context->contextlevel . ", Instance ID: " . $context->instanceid);
-
 $context = context_course::instance($courseid);
 $PAGE->set_context($context);
+
+// Setup the context for this course.
+debugging("Context type: " . $context->contextlevel . ", Instance ID: " . $context->instanceid);
 
 // Setup the page URL, title, and heading.
 $PAGE->set_url('/local/graidy/course.php', ['id' => $courseid]);
@@ -45,37 +52,6 @@ $iframeurl = rtrim($baseurl, '/') . '/' . $path;
 // Output the page header.
 echo $OUTPUT->header();
 
-// A small navigation menu of buttons for switching the 'path'.
-?>
-<div style="margin-bottom: 1em;">
-    <form action="<?php echo new moodle_url('/local/graidy/course.php'); ?>" method="get" style="display:inline;">
-        <input type="hidden" name="id" value="<?php echo $courseid; ?>">
-        <input type="hidden" name="path" value="dashboard">
-        <button type="submit" class="btn btn-secondary">
-            <?php echo get_string('dashboard', 'local_graidy'); ?>
-        </button>
-    </form>
-
-    <form action="<?php echo new moodle_url('/local/graidy/course.php'); ?>" method="get" style="display:inline;">
-        <input type="hidden" name="id" value="<?php echo $courseid; ?>">
-        <input type="hidden" name="path" value="reports">
-        <button type="submit" class="btn btn-secondary">
-            <?php echo get_string('reports', 'local_graidy'); ?>
-        </button>
-    </form>
-
-    <form action="<?php echo new moodle_url('/local/graidy/course.php'); ?>" method="get" style="display:inline;">
-        <input type="hidden" name="id" value="<?php echo $courseid; ?>">
-        <input type="hidden" name="path" value="settings">
-        <button type="submit" class="btn btn-secondary">
-            <?php echo get_string('settings', 'local_graidy'); ?>
-        </button>
-    </form>
-</div>
-
-
-
-<?php
 // Embed your iframe or content here.
 // 1. Get the GRAiDY base URL from plugin settings.
 $graidybaseurl = get_config('local_graidy', 'baseurl');

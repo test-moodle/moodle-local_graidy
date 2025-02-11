@@ -29,6 +29,7 @@ $string['privacy:metadata'] = 'The GRAiDY plugin provides extended functionality
 
 // Settings.
 // admin_setting_custom_webservicesoverview.php.
+$string['plugin_heading'] = 'GRAiDY Plugin';
 $string['baseurl'] = 'Base URL';
 $string['baseurl_desc'] = 'Enter the base URL of your GRAiDY instance. Example: https://portal.graidy.tech';
 $string['baseurl_heading'] = 'GRAiDY Server Configuration';
@@ -37,6 +38,7 @@ $string['organizationtoken'] = 'Organization API Key:';
 $string['organizationtoken_desc'] = 'Enter the organization API Key of your GRAiDY instance. Example: trxYh-xxxx-xxxx-xxxx';
 $string['organizationtoken_heading'] = 'GRAiDY organization API Key';
 $string['organizationtoken_heading_desc'] = 'Configure the GRAiDY organization instance that this Moodle site will connect to.';
+$string['welcome'] = 'Welcome to GRAiDY';
 $string['graidy_settings'] = 'GRAiDY Settings';
 $string['graidy_description'] = 'AI-Powered grading & analytics for Moodle';
 $string['graidy_grading_button'] = 'GRAiDY Grading';
